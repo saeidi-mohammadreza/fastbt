@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastbt"
+version = "0.1.0"
+description = "A small, exact bar backtester with a lookahead audit, purged walk-forward CV and parallel-equals-serial sweeps"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Mohammadreza Saeidi" }]
+dependencies = ["numpy>=1.24"]
+keywords = ["backtesting", "quantitative-finance", "numba", "cross-validation", "trading"]
+
+[project.optional-dependencies]
+numba = ["numba>=0.59"]
+dev = ["numba>=0.59", "pytest>=7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
