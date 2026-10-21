@@ -51,14 +51,15 @@ With a 240-bar forward-return label, the last 240 training samples before each t
 
 ## Speed
 
-`python examples/benchmark.py` on a 2-vCPU cloud container, NumPy only:
+`python examples/benchmark.py` (2 M bars; 16-config sweep of 200k bars each), as measured in CI on GitHub-hosted runners:
 
-| | result |
-| --- | --- |
-| vectorised simulator | 16 M bars/s |
-| 16-config sweep, 200k bars each | 2.9 s serial → 1.3 s with 2 workers, results identical |
+| | NumPy only | with Numba |
+| --- | ---: | ---: |
+| vectorised simulator | 29–35 M bars/s | 44–47 M bars/s |
+| loop engine (Numba) | | 94–119 M bars/s, bit-identical to NumPy |
+| 16-config sweep, serial → 4 workers | 1.9 s → 1.2 s | 1.6 s → 0.8 s |
 
-The Numba loop engine is benchmarked in CI (the *with-numba* job).
+Every parallel run returns exactly the serial results (`identical=True` in each job's log).
 
 ## Run the tests
 
