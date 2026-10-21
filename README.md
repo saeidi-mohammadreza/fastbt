@@ -14,6 +14,20 @@ Most backtests that look too good are wrong in one of four ways: the decision us
 | **Parallel = serial** | `run_sweep()` returns exactly the serial result with any number of workers (tested) |
 | **Two engines, one answer** | a vectorised NumPy engine and a loop engine (Numba-compiled when installed) must agree to the last bit |
 
+The timing convention, fixed in the engine rather than left to each strategy:
+
+```mermaid
+sequenceDiagram
+    participant S as Strategy
+    participant E as Engine
+    Note over S,E: bar t
+    S->>E: target[t], computed from data up to close[t] only
+    Note over S,E: bar t+1
+    E->>E: old position earns the overnight gap close[t] to open[t+1]
+    E->>E: trade to target[t] at open[t+1], pay fees + slippage on the change
+    E->>E: new position earns open[t+1] to close[t+1]
+```
+
 ```python
 import numpy as np
 from fastbt import synthetic_ohlc, ema, simulate, Costs, summary, audit_lookahead
