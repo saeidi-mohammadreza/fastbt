@@ -1,4 +1,4 @@
-"""Performance metrics with the annualisation convention stated, not implied."""
+"""Performance metrics. The annualisation factor is always an explicit argument."""
 from __future__ import annotations
 
 import numpy as np
