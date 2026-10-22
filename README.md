@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/saeidi-mohammadreza/fastbt/actions/workflows/ci.yml/badge.svg)](https://github.com/saeidi-mohammadreza/fastbt/actions/workflows/ci.yml)
 
-**A small, exact bar backtester where the research-hygiene rules are code, not conventions.**
+**A small, exact bar backtester that turns the usual research-hygiene rules into tested code.**
 
 Most backtests that look too good are wrong in one of four ways: the decision used a bar it could not have seen, the fill happened at a price that was never available, the validation leaked labels across the train/test boundary, or the "parallel speed-up" silently changed the numbers. `fastbt` makes each of those a tested property.
 
@@ -14,7 +14,7 @@ Most backtests that look too good are wrong in one of four ways: the decision us
 | **Parallel = serial** | `run_sweep()` returns exactly the serial result with any number of workers (tested) |
 | **Two engines, one answer** | a vectorised NumPy engine and a loop engine (Numba-compiled when installed) must agree to the last bit |
 
-The timing convention, fixed in the engine rather than left to each strategy:
+The engine fixes the timing convention for every strategy:
 
 ```mermaid
 sequenceDiagram
@@ -86,4 +86,4 @@ pytest -q
 
 Single instrument, bar data, target-position strategies (long/short/fractional), market fills at the next open. No order book, no partial fills, no borrow costs; those belong in a different tool. Synthetic data only: no market data is included.
 
-MIT licence. Author: Mohammadreza Saeidi. A clean-room, generic re-implementation of ideas I use in production backtesting (structural no-lookahead keys, purged walk-forward validation, bit-identical verification of every speed-up); it contains no employer code.
+MIT licence. I wrote fastbt as a clean-room, generic version of ideas I use in production backtesting (structural no-lookahead keys, purged walk-forward validation, bit-identical checks on every speed-up). It contains no employer code.
