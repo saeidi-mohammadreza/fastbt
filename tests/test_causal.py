@@ -34,3 +34,12 @@ def test_rolling_mean_matches_naive():
     x = np.arange(10, dtype=float)
     m = rolling_mean(x, 3)
     assert np.isnan(m[:2]).all() and m[2:].tolist() == [1, 2, 3, 4, 5, 6, 7, 8]
+
+
+def test_ema_of_empty_input_is_empty():
+    assert ema(np.array([]), 10).shape == (0,)
+
+
+def test_audit_needs_enough_bars():
+    with pytest.raises(ValueError):
+        audit_lookahead(lambda b: b["close"], synthetic_ohlc(10, seed=0))
