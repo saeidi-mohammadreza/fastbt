@@ -1,7 +1,7 @@
 """Bar-based simulation with an explicit fill and cost model.
 
-Timing convention (the one most leaks come from, so it is fixed here, not left
-to each strategy):
+Timing convention. Most leaks come from getting this wrong, so the engine fixes
+it for every strategy:
 
 * A decision for bar ``t`` may use information up to and including the **close**
   of bar ``t``.
