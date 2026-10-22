@@ -24,6 +24,8 @@ def ema(x: np.ndarray, span: int) -> np.ndarray:
     """Exponential moving average seeded with the first value (causal)."""
     if span < 1:
         raise ValueError("span must be >= 1")
+    if len(x) == 0:
+        return np.empty(0)
     a = 2.0 / (span + 1.0)
     out = np.empty(len(x))
     acc = float(x[0])
@@ -62,6 +64,8 @@ def audit_lookahead(signal_fn: Callable[[dict[str, np.ndarray]], np.ndarray],
     rng = np.random.default_rng(seed)
     base = np.asarray(signal_fn(bars))
     n = len(base)
+    if n < 20:
+        raise ValueError(f"need at least 20 bars to audit, got {n}")
     cuts = rng.integers(n // 10, n - 1, size=n_cuts)
     for t in cuts:
         perturbed = {}
